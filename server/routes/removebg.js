@@ -33,12 +33,12 @@ router.post("/", authMiddleware, async (req, res) => {
   const user = findUserById(req.user.id);
   if (!user) return res.status(401).json({ error: "User not found." });
 
-  if (user.credits <= 0) {
-    return res.status(402).json({
-      error: "You have no credits remaining. Please upgrade your plan.",
-      credits: 0,
-    });
-  }
+  // if (user.credits <= 0) {
+  //   return res.status(402).json({
+  //     error: "You have no credits remaining. Please upgrade your plan.",
+  //     credits: 0,
+  //   });
+  // }
 
   // ─── Call remove.bg API ─────────────────────────────────────────────────
   try {
