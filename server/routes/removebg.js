@@ -14,7 +14,7 @@ const authMiddleware = require("../middleware/auth");
 const { findUserById, updateUser } = require("../utils/userStore");
 
 // ─── POST /api/remove-bg ──────────────────────────────────────────────────────
-router.post("/", authMiddleware, async (req, res) => {
+router.post("/", async (req, res) => {
   const { filename } = req.body;
 
   if (!filename) {
@@ -30,8 +30,8 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 
   // ─── Check credits ──────────────────────────────────────────────────────
-  const user = findUserById(req.user.id);
-  if (!user) return res.status(401).json({ error: "User not found." });
+// ✅ DEMO MODE
+const user = { id: "demo-user", credits: 999 };
 
   // if (user.credits <= 0) {
   //   return res.status(402).json({
@@ -74,7 +74,7 @@ router.post("/", authMiddleware, async (req, res) => {
     fs.writeFileSync(resultPath, response.data);
 
     // ─── Deduct 1 credit ──────────────────────────────────────────────────
-    const updatedUser = updateUser(user.id, { credits: user.credits - 1 });
+    const updatedUser = user;
 
     const resultUrl = `${req.protocol}://${req.get("host")}/uploads/${resultFilename}`;
 
